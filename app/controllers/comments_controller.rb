@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
 
+
+
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
@@ -20,7 +22,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to post_path(@post), notice: "Comment was successfully destroyed." }
+      format.html { redirect_to post_path, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
     end
   end

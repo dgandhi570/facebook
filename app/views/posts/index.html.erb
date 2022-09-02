@@ -4,14 +4,25 @@
 
 <div id="posts">
   <% @posts.each do |post| %>
-    <%= render post %>
-  Comments: <br> 
-<% post.comments.each do |c|%>
-<strong><%=c.user.fname%>  </strong>
-<%=c.body%>
-<br>
-<%end%>
+  <%= render post %>
 
+
+   <%= form_with model: [ post, post.likes.build ] do |form| %>
+         
+          <%= form.hidden_field :post_id, value: :post_id %>%
+          <%= form.submit %>
+          
+      <%end %> 
+
+
+      <%# <%= link_to "Like", create_post_like_path(post_id: post.id) %> %>
+      <strong>Likes: <%= post.likes.count%>  </strong><br>
+      <strong>Comments:</strong> <br> 
+      <% post.comments.each do |c|%>
+      <strong><%=c.user.fname%>  </strong>
+      <%=c.body%>
+      <br>
+      <%end%>
 
     <strong>--------------------------------------------------</strong>
   <% end %>

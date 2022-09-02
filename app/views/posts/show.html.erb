@@ -3,6 +3,7 @@
 
 <%= render @post %>
 
+<strong>Likes: <%= @post.likes.count%>  </strong>
 <h2>Comments</h2>
 <%= render @post.comments %>
 
