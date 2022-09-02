@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+<h1>Post <%=@post.id%></h1>
+
+<%= render @post %>
+
+<h2>Comments</h2>
+<%= render @post.comments %>
+
+
+<b> Add a comment:</b> <%= render "cform" %>
+
+<div>
+  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%= link_to "Back to posts", posts_path %>
+
+  <%= button_to "Destroy this post", @post, method: :delete %>
+</div>
