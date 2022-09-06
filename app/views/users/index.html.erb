@@ -1,0 +1,17 @@
+<div class= "container" >
+<h1>All Users</h1>
+
+<div class= "container" >
+<br>
+<%@users.each do |x| %>
+<%= x.id %>.     
+<%if x.avatar.attached? %>
+  <%= image_tag x.avatar, style: "width: 30px; class: rounded-circle" %>
+  <%end%>
+ 
+<%= x.fname %>
+<%= x.lname %>    .................     <%= x.email %> 
+<%= link_to "Send Friend Request"%>
+<br>
+<br>
+<%end%>

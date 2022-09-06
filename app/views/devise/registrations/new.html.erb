@@ -3,6 +3,16 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+   <div class="field">
+    <div class="row">
+      
+    <div class= "col-sm-5">
+        <%= f.file_field :avatar%>
+    </div>
+
+    </div>
+  </div>
+
   <div class="field">
     <%= f.label :fname %><br />
     <%= f.text_field :fname, autofocus: true, autocomplete: "fname" %>

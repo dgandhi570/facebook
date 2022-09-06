@@ -1,10 +1,17 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>User:
+  <div>
+    <strong>User:<%if post.user.avatar.attached? %>
+  <%= image_tag post.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+  <%end%>
       <%= link_to post.user.fname, post %>
+      
    </strong>
-    
-  </p>
+    </div>
+    <div class="container">
+<br>
+  <%if post.post_image.attached? %>
+  <%= image_tag post.post_image, style: "width: 200px", class: "img-thumbnail" %>
+  <%end%>
   <p>
     <strong>Body:</strong>
     <%= post.body %>
@@ -13,4 +20,5 @@
  <%# <b> Add a comment:</b> <%= render "cform" %>
   
 
+</div>
 </div>

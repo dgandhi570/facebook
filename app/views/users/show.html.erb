@@ -1,0 +1,29 @@
+<%if @user.avatar.attached? %>
+  <%= image_tag @user.avatar, style: "width: 150px", class: "rounded-circle" %>
+  <%end %>
+<h1>Welcome <%= @user.fname %> <%= @user.lname %> </h1>
+<br>
+<% p = @user.posts %>
+<% p.each do |x|%>
+  <div>
+    <strong>User:<%if x.user.avatar.attached?%> 
+  <%= image_tag x.user.avatar, style: "width: 30px", class: "rounded-circle" %> 
+    <%end%> 
+      <%= link_to x.user.fname, x %>
+      
+   </strong>
+    </div>
+<br>
+  <%if x.post_image.attached? %>
+  <%= image_tag x.post_image, style: "width: 200px; display: block" %>
+  <%end%>
+  <p>
+    <strong>Body:</strong>
+    <%= x.body %>
+    
+  </p>
+ <%# <b> Add a comment:</b> <%= render "cform" %>
+  
+
+</div>
+<%end%>

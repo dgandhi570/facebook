@@ -1,25 +1,35 @@
 class LikesController < ApplicationController
 
-    def new
-    end
+  def new
+  end
 
-    def create
-        @post = Post.find(params[:post_id])
-        debugger
-        @like = current_user.likes.build(like_params)
-        
-        respond_to do |format|
-          if @like.save
-            format.html { redirect_to root_path, notice: "Liked Post" }
-          end
-          
+  def create
+      # @post = Post.find(params[:post_id])
+      
+      @like = current_user.likes.new(like_params)
+      
+      
+        if !@like.save
+          flash[:notice] = @like.errors.full_messages.to_sentence
         end
-    end
+        redirect_to request.referrer
+  end
 
-    private
 
-    def like_params
-      params.require(:like).permit(:user_id, :post_id)
-    end
-    
+
+  def destroy
+    @like = current_user.likes.find(params[:id])
+    post = @like.post
+    @like.destroy
+    redirect_to request.referrer
+  end
+
+
+
+  private
+
+  def like_params
+    params.require(:like).permit(:post_id)
+  end
+  
 end

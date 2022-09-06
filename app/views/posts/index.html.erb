@@ -1,27 +1,31 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Posts</h1>
-
+<br>
+<div class="container">
 <div id="posts">
   <% @posts.each do |post| %>
   <%= render post %>
+<strong>Likes: <%= post.likes.count%>  </strong>
 
-
-   <%= form_with model: [ post, post.likes.build ] do |form| %>
-         
-          <%= form.hidden_field :post_id, value: :post_id %>%
-          <%= form.submit %>
-          
-      <%end %> 
-
-
-      <%# <%= link_to "Like", create_post_like_path(post_id: post.id) %> %>
-      <strong>Likes: <%= post.likes.count%>  </strong><br>
+<% like = current_user.likes.find_by(post: post)%>
+<% if like.nil? %>
+<%= button_to "Like", likes_path,  params: {like:{post_id: post.id}}, method: :post %>
+<%else%>
+<%= button_to "Unlike", like_path(like), method: :delete %>
+<%end%>
+      <%com = post.comments.each%>
+      <%if post.comments.count == 0 %>
+      <br>
+      
+      <%else%>
       <strong>Comments:</strong> <br> 
+    
       <% post.comments.each do |c|%>
       <strong><%=c.user.fname%>  </strong>
-      <%=c.body%>
+      <%=c.body%></th>
       <br>
+      <%end%>
       <%end%>
 
     <strong>--------------------------------------------------</strong>

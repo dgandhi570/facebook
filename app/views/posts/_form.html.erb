@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+    <div>
+  <%= form.label :post_image%>
+  <%= form.file_field :post_image%>
+</div>
+
   <div>
     <%= form.label :body, style: "display: block" %>
     <%= form.text_area :body %>
