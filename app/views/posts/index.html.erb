@@ -1,6 +1,24 @@
 <p style="color: green"><%= notice %></p>
 
+
+
+<h2>Pending friend Requests</h2>
+<%p = current_user.pending_invitations%>
+<%p.each do |req|%>
+<%= image_tag req.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+<%= req.user.fname%> <%= req.user.lname%>
+<%= link_to "Accept", class: "btn btn-primary" %>
+<%= link_to "Reject",invitations_destroy_path(invitation_id: req.id), class: "btn btn-secondary" %>
+<br>
+<br>
+<%end%>
 <h1>Posts</h1>
+
+
+
+
+
+
 <br>
 <div class="container">
 <div id="posts">
@@ -13,15 +31,18 @@
 <%= button_to "Like", likes_path,  params: {like:{post_id: post.id}}, method: :post %>
 <%else%>
 <%= button_to "Unlike", like_path(like), method: :delete %>
-<%end%>
+<%end%><br>
       <%com = post.comments.each%>
       <%if post.comments.count == 0 %>
       <br>
       
       <%else%>
-      <strong>Comments:</strong> <br> 
+      <%# <strong>Comments:</strong> <br>  %>
     
       <% post.comments.each do |c|%>
+      <%if c.user.avatar.attached? %>
+  <%= image_tag c.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+  <%end%>
       <strong><%=c.user.fname%>  </strong>
       <%=c.body%></th>
       <br>

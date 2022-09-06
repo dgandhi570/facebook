@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   get 'comments/create'
   get 'comments/new'
   get 'comments/destroy'
+  get 'invitations/update'
+  get 'invitations/create'
+  get 'invitations/destroy'
 
-  
+  # resources :invitations
   devise_for :users
   resources :posts do
     resources :comments 
