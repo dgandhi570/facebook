@@ -6,4 +6,7 @@ class UsersController < ApplicationController
   def show
     @user = current_user
   end
+  def friends
+    @f= current_user.friends
+end
 end

@@ -1,6 +1,6 @@
 <div id="<%= dom_id post %>">
   <div>
-    <strong>User:<%if post.user.avatar.attached? %>
+    <strong><%if post.user.avatar.attached? %>
   <%= image_tag post.user.avatar, style: "width: 30px", class: "rounded-circle" %>
   <%end%>
       <%= link_to post.user.fname, post %>

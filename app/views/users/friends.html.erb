@@ -1,0 +1,20 @@
+
+<figure class="text-left">
+  <blockquote class="blockquote">
+    <h1>My Friends</h1>
+  </blockquote>
+  </figure>
+
+<br>
+<%@f.each do |req|%>
+<div class="container">
+<table class="table justify-content-end" >
+  <tbody>
+    <tr>
+      <th scope="row"><%= image_tag req.avatar, style: "width: 40px", class: "rounded-circle" %></th>
+      <td><%= req.fname%> <%= req.lname%></td>
+      
+    </tr>
+  </tbody>
+</table></div>
+<%end%>

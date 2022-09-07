@@ -1,56 +1,49 @@
 <p style="color: green"><%= notice %></p>
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <%=link_to "My Friends", users_friends_path,  class: "btn btn-outline-primary"%>
+  <button type="button" class="btn btn-outline-primary">Middle</button>
+
+</div>
 
 
-
-<h2>Pending friend Requests</h2>
-<%p = current_user.pending_invitations%>
-<%p.each do |req|%>
-<%= image_tag req.user.avatar, style: "width: 30px", class: "rounded-circle" %>
-<%= req.user.fname%> <%= req.user.lname%>
-<%= link_to "Accept", class: "btn btn-primary" %>
-<%= link_to "Reject",invitations_destroy_path(invitation_id: req.id), class: "btn btn-secondary" %>
 <br>
-<br>
-<%end%>
+ <br>
 <h1>Posts</h1>
-
-
-
-
-
-
-<br>
+<%= link_to "What's on your mind?", new_post_path, class:"btn btn-secondary" %>
 <div class="container">
-<div id="posts">
+<table class="table justify-content-end" >
+  <tbody>
   <% @posts.each do |post| %>
-  <%= render post %>
-<strong>Likes: <%= post.likes.count%>  </strong>
-
-<% like = current_user.likes.find_by(post: post)%>
-<% if like.nil? %>
-<%= button_to "Like", likes_path,  params: {like:{post_id: post.id}}, method: :post %>
-<%else%>
-<%= button_to "Unlike", like_path(like), method: :delete %>
-<%end%><br>
+    <tr>
+      <th scope="row"> <%= render post %></th>
+      
+      <td><strong>Likes: <%= post.likes.count%> <% like = current_user.likes.find_by(post: post)%>
+      <% if like.nil? %>
+      <%= button_to "Like", likes_path,  params: {like:{post_id: post.id}}, method: :post, class:"btn btn-success" %>
+      <%else%>
+      <%= button_to "Unlike", like_path(like), method: :delete,  class:"btn btn-secondary" %>
+      <%end%><br> </strong></td>
       <%com = post.comments.each%>
       <%if post.comments.count == 0 %>
-      <br>
-      
+        <td>No comments 
+        <br>
+        <%= button_to "Add a comment", post , method: :get, class:"btn btn-light" %></td>
       <%else%>
-      <%# <strong>Comments:</strong> <br>  %>
-    
-      <% post.comments.each do |c|%>
+      <td><% post.comments.each do |c|%>
       <%if c.user.avatar.attached? %>
   <%= image_tag c.user.avatar, style: "width: 30px", class: "rounded-circle" %>
   <%end%>
       <strong><%=c.user.fname%>  </strong>
       <%=c.body%></th>
       <br>
+      <br>
       <%end%>
-      <%end%>
+      <br>
+      <%= button_to "Add a comment", post , method: :get, class:"btn btn-light" %></td>
+        <%end%>
+    </tr>
+      <% end %>
+  </tbody>
+</table></div>
 
-    <strong>--------------------------------------------------</strong>
-  <% end %>
-</div>
 
-<%= link_to "New post", new_post_path %>

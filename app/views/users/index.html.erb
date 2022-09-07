@@ -1,52 +1,54 @@
 <div class= "container" >
+<h2>Pending friend Requests</h2>
+<%p = current_user.pending_invitations%>
+<%p.each do |req|%>
+<div class="container">
+<table class="table justify-content-end" >
+  <tbody>
+    <tr>
+      <th scope="row"><%= image_tag req.user.avatar, style: "width: 40px", class: "rounded-circle" %></th>
+      <td><%= req.user.fname%> <%= req.user.lname%></td>
+      <td><%= link_to "Accept", invitations_update_path(invitation_id: req.id), params: {id: req.id, confirmed: :true}, class: "btn btn-primary" %></td>
+      <td><%= link_to "Reject",invitations_destroy_path(invitation_id: req.id), class: "btn btn-danger " %></td>
+    </tr>
+  </tbody>
+</table></div>
+<%end%>
 
-
-
-
-
-
-
-
-
-
+<br>
 
 <h1>All Users</h1>
-
 <div class= "container" >
 <br>
 <%@users.each do |x| %>
-    
-<%if x.avatar.attached? %>
-  <%= image_tag x.avatar, style: "width: 30px", class: "rounded-circle" %>
-  <%end%>
- 
-<%= x.fname %>
-<%= x.lname %>    .................     <%= x.email %> 
-
-<% a = Invitation.where(user_id: x.id, friend_id: current_user.id, boolean: false)%>
-<% if current_user.friend_with?(x) %>
-    <%= link_to "Remove Friend", invitations_destroy_path , class: "btn btn-secondary"%>
-<% elsif !a.nil? %>
-    <%= link_to "Accept Request", invitations_update_path(invitation_id: a.ids[0]) , class: "btn btn-secondary"%>
-
-
-
-
-
-
-
-
-
-
-
-<%if !Invitation.reacted?(current_user.id, x.id) %>
-<%= link_to "Send Friend Request", invitations_create_path(ids: {id1: current_user.id, id2: x.id}) , class: "btn btn-secondary"%>
-<% elsif !current_user.friend_with?(x) %>
-<% a = Invitation.where(user_id: current_user.id, friend_id: x.id)%>
-<%= link_to "Unsend Request", invitations_destroy_path(invitation_id: a.ids[0]) , class: "btn btn-secondary"%>
-<%else%>
-<%= link_to "Remove Friend", invitations_destroy_path , class: "btn btn-secondary"%>
+      <% a = Invitation.where(user_id: current_user.id, friend_id: x.id)%> 
+      <%if a.empty?%>
+      <% a = Invitation.where(user_id: x.id, friend_id: current_user.id)%> 
+      <%end%>
+      <% be = Invitation.where(user_id: x.id, friend_id: current_user.id)%> 
+      <% if p.include?(be[0])%>
+      <%next%>
+      <%else%>
+      <%if current_user.id != x.id %> 
+          
+          <div class="container">
+          <table class="table justify-content-end" >
+          <tbody>
+          <tr>
+          <th scope="row"><%= image_tag x.avatar, style: "width: 40px", class: "rounded-circle" %></th>
+          <td><%= x.fname%> <%= x.lname%></td>
+          <td>
+          <%if !Invitation.reacted?(current_user.id, x.id)  %>
+              <%= link_to "Send Friend Request", invitations_create_path(ids: {id1: current_user.id, id2: x.id}) , class: "btn btn-success"%>
+          <%elsif !current_user.friend_with?(x) %>
+              <%= link_to "Unsend Request", invitations_destroy_path(invitation_id: a.ids[0]) , class: "btn btn-danger"%>
+          <%else%>
+              <%= link_to "Remove Friend", invitations_destroy_path(invitation_id: a.ids[0]) , class: "btn btn-danger"%>
+          <%end%></td>
+          </tr>
+          </tbody>
+          </table></div>
+      <%end%>
 <%end%>
-<br>
-<br>
-<%end%>
+
+<%end %>
