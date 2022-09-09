@@ -28,8 +28,12 @@
       <form class="d-flex" role="search">
       <strong><%=current_user.fname%><%=current_user.lname %>  </strong>
         <%if current_user.avatar.attached? %>
-  <%= image_tag current_user.avatar, style: "width: 30px", class: "rounded-circle" %>
-  <%end%> 
+          <%= image_tag current_user.avatar, style: "width: 30px", class: "rounded-circle" %>
+          <%elsif current_user.image%>
+          <%= image_tag current_user.image, style: "width: 30px", class: "rounded-circle" %>
+          <%else%>
+          <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
+          <%end%>
       </form>
       <%end%>
     </div>

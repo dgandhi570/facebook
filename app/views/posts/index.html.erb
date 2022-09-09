@@ -31,8 +31,12 @@
       <%else%>
       <td><% post.comments.each do |c|%>
       <%if c.user.avatar.attached? %>
-  <%= image_tag c.user.avatar, style: "width: 30px", class: "rounded-circle" %>
-  <%end%>
+        <%= image_tag c.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+        <%elsif c.user.image%>
+        <%= image_tag c.user.image, style: "width: 30px", class: "rounded-circle" %>
+        <%else%>
+        <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
+        <%end%>
       <strong><%=c.user.fname%>  </strong>
       <%=c.body%></th>
       <br>

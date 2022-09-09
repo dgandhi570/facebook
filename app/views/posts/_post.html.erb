@@ -2,6 +2,10 @@
   <div>
     <strong><%if post.user.avatar.attached? %>
   <%= image_tag post.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+  <%elsif post.user.image%>
+  <%= image_tag post.user.image, style: "width: 30px", class: "rounded-circle" %>
+  <%else%>
+   <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
   <%end%>
       <%= link_to post.user.fname, post %>
       

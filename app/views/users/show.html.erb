@@ -1,15 +1,24 @@
 <div class="container">
 <%if @user.avatar.attached? %>
-  <%= image_tag @user.avatar, style: "width: 150px", class: "rounded-circle" %>
-  <%end %>
+  <%= image_tag @user.avatar, style: "width: 200px", class: "rounded-circle" %>
+  <%elsif @user.image%>
+  <%= image_tag @user.image, style: "width: 200px", class: "rounded-circle" %>
+  <%else%>
+   <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:200px;", :class => "rounded-circle"}) %>
+  <%end%>
 <h1>Welcome <%= @user.fname %> <%= @user.lname %> </h1>
 <br>
 <% p = @user.posts %>
 <% p.each do |x|%>
   <div>
-    <strong>User:<%if x.user.avatar.attached?%> 
-  <%= image_tag x.user.avatar, style: "width: 30px", class: "rounded-circle" %> 
-    <%end%> 
+    <strong>User:<%if x.user.avatar.attached? %>
+  <%= image_tag x.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+  <%elsif x.user.image%>
+  <%= image_tag x.user.image, style: "width: 30px", class: "rounded-circle" %>
+  <%else%>
+   <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
+   
+  <%end%>
       <%= link_to x.user.fname, x %>
       
    </strong>

@@ -6,7 +6,13 @@
 <table class="table justify-content-end" >
   <tbody>
     <tr>
-      <th scope="row"><%= image_tag req.user.avatar, style: "width: 40px", class: "rounded-circle" %></th>
+      <th scope="row"><%if req.user.avatar.attached? %>
+  <%= image_tag req.user.avatar, style: "width: 30px", class: "rounded-circle" %>
+  <%elsif req.user.image%>
+  <%= image_tag req.user.image, style: "width: 30px", class: "rounded-circle" %>
+  <%else%>
+   <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
+  <%end%></th>
       <td><%= req.user.fname%> <%= req.user.lname%></td>
       <td><%= link_to "Accept", invitations_update_path(invitation_id: req.id), params: {id: req.id, confirmed: :true}, class: "btn btn-primary" %></td>
       <td><%= link_to "Reject",invitations_destroy_path(invitation_id: req.id), class: "btn btn-danger " %></td>
@@ -35,7 +41,13 @@
           <table class="table justify-content-end" >
           <tbody>
           <tr>
-          <th scope="row"><%= image_tag x.avatar, style: "width: 40px", class: "rounded-circle" %></th>
+          <th scope="row"><%if x.avatar.attached? %>
+            <%= image_tag x.avatar, style: "width: 60px", class: "rounded-circle" %>
+            <%elsif x.image%>
+            <%= image_tag x.image, style: "width: 60px", class: "rounded-circle" %>
+            <%else%>
+            <%= image_tag("https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg", {:style => "width:30px;", :class => "rounded-circle"}) %>
+            <%end%></th>
           <td><%= x.fname%> <%= x.lname%></td>
           <td>
           <%if !Invitation.reacted?(current_user.id, x.id)  %>
